@@ -1,6 +1,9 @@
 <?php
-include_once 'system/users.php';
+    include_once 'system/Login.php';
 
-$users = UsersFunctions::getInstance();
+$login = Login::getInstance();
 
-$users->register("sinpatrones@gmail.com", "Armando Hinojosa Ccama", "1", "123456789");
+$id = 0;
+$login->insertNewLogin("sinpatrones1@gmail.com", "123456", $id);
+
+echo $id;

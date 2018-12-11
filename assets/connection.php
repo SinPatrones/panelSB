@@ -2,14 +2,9 @@
 class ConnectionDb{
     private static $instance = null;
     private static $host = "localhost";
-    //private static $user = "root";
-    //private static $pass = "";
-    //private static $db = "unsasmartbus";
-    //private static $user = "u291211255_unsa";
-    private static $user = "root";
-    //private static $pass = "Unsa2018%";
-    private static $pass = "";
-    private static $db = "u291211255_unsa";
+    private static $user = "u291211255_sbanu";
+    private static $pass = "lST9gh3OhU14~3t]@n";
+    private static $db = "u291211255_anunc";
     private static $mysql = null;
     private function __construct(){
         // singleton mode
@@ -23,6 +18,7 @@ class ConnectionDb{
         self::$mysql = mysqli_connect(self::$host, self::$user, self::$pass, self::$db);
         return self::$mysql;
     }
+
     function query($query){
         mysqli_set_charset(self::$mysql,'utf8');
         return mysqli_query(self::$mysql, $query);
@@ -30,7 +26,7 @@ class ConnectionDb{
     function error(){
         return mysqli_error(self::$mysql);
     }
-    function realescape($data){
+    function realescape(&$data){
         return mysqli_real_escape_string(self::$mysql,$data);
     }
     function lastid(){

@@ -1,6 +1,6 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'].'/assets/connection.php';
-include_once $_SERVER['DOCUMENT_ROOT'].'/assets/security.php';
+include_once '/assets/connection.php';
+include_once '/assets/security.php';
 
 class UsersFunctions{
     private $security =null;
