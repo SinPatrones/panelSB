@@ -108,17 +108,18 @@
                                                                 <div class="form-group">
                                                                     <input name="fullname" type="text" class="form-control" value="USUARIO: <?php echo $_SESSION["user"]["fullname"]; ?>" readonly="readonly">
                                                                 </div>
-                                                                <select name="priority" class="form-control">
-                                                                    <option value="0" disabled>Seleccione Prioridad</option>
-                                                                    <option value="1">MAXIMA (labores,servicio vehicular,rector,comedor)</option>
-                                                                    <option value="2">MEDIO (Eventos,Conferencias,Invitaciones - Cercanas)</option>
-                                                                    <option value="3">BAJO (Informes,posicionamiento,eventos a partir de dos semanas)</option>
+                                                                <label for="scope">Alcance: </label>
+                                                                <select name="scope" id="scope" class="form-control" data-placeholder="Seleccione">
+                                                                    <option disabled>Seleccione Prioridad</option>
+                                                                    <option value="1">Local</option>
+                                                                    <option value="2">Distrital</option>
+                                                                    <option value="3">Regional</option>
                                                                 </select>
                                                                 <br>
-                                                                <select name="status" class="form-control">
-                                                                    <option value="0">Seleccione Estado</option>
+                                                                <label for="status">Estado: </label>
+                                                                <select name="status" id="status" class="form-control">
+                                                                    <option value="0">Inactivo</option>
                                                                     <option value="1">Activo</option>
-                                                                    <option value="2">Inactivo</option>
                                                                 </select>
                                                                 <br>
                                                                 <div align="center">
