@@ -38,7 +38,7 @@ class Anunciantes{
             $this->con->realescape($fech_nacimiento);
             $this->con->realescape($fech_registro);
 
-            $sql = "INSERT INTO tblanunciantes(id_anunciante,nombres,ap_paterno,ap_materno,num_contacto,sexo,fech_nacimiento,fech_registro)";
+            $sql = "INSERT INTO tblanunciantes(id_anunciante,nombres,ap_paterno,ap_materno,num_contacto,sexo,fech_nacimiento,fech_registro) VALUES ($id,'$nombre','$app','$apm','$num_contacto','$sexo','$fech_nacimiento','$fech_registro')";
 
             $result = $this->con->query($sql);
 
