@@ -108,11 +108,8 @@
                                                                 <div class="form-group">
                                                                     <input name="fullname" type="text" class="form-control" value="USUARIO: <?php echo $_SESSION["user"]["fullname"]; ?>" readonly="readonly">
                                                                 </div>
-                                                                <div class="form-group">
-                                                                    <input name="finish" id="finish" type="text" class="form-control" value="OFFICINA: <?php echo $_SESSION["user"]["officename"]; ?>" readonly="readonly">
-                                                                </div>
                                                                 <select name="priority" class="form-control">
-                                                                    <option value="0">Seleccione Prioridad</option>
+                                                                    <option value="0" disabled>Seleccione Prioridad</option>
                                                                     <option value="1">MAXIMA (labores,servicio vehicular,rector,comedor)</option>
                                                                     <option value="2">MEDIO (Eventos,Conferencias,Invitaciones - Cercanas)</option>
                                                                     <option value="3">BAJO (Informes,posicionamiento,eventos a partir de dos semanas)</option>
@@ -123,6 +120,98 @@
                                                                     <option value="1">Activo</option>
                                                                     <option value="2">Inactivo</option>
                                                                 </select>
+                                                                <br>
+                                                                <div align="center">
+                                                                    <h4>Arrastre el marcador a su negocio en el mapa</h4>
+                                                                </div>
+                                                                <br>
+                                                                <div align="center">
+                                                                    <label for="latitud">Latitud:</label>
+                                                                    <input type="text" id="latitud" name="latitud">
+                                                                    <label for="longitud">Longitud:</label>
+                                                                    <input type="text" id="longitud" name="longitud">
+                                                                </div>
+                                                                <br>
+                                                                <!--<iframe width="100%" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q=Socabaya&key=AIzaSyDyn8SmflpFXcyV89QKfgdnW03wwytrJTM" allowfullscreen></iframe>
+                                                                <br>-->
+                                                                <div style="width: 100%; height: 450px">
+                                                                    <div id="map"></div>
+                                                                    <script>
+                                                                        var map;
+                                                                        var marker;
+                                                                        var pos;
+                                                                        var aqp;
+                                                                        function initMap() {
+                                                                            /*if(navigator.geolocation) {
+                                                                                navigator.geolocation.getCurrentPosition(function(position) {
+                                                                                    if (position == null){
+                                                                                        alert("Sin permisos");
+                                                                                    }
+                                                                                    pos = {lat: position.coords.latitude.toString(), lng: position.coords.longitude.toString()};
+                                                                                    document.getElementById("latitud").value = pos.lat.toString();
+                                                                                    document.getElementById("longitud").value = pos.lng.toString();
+
+                                                                                    map = new google.maps.Map(document.getElementById('map'), {
+                                                                                        center: pos,
+                                                                                        zoom: 17
+                                                                                    });
+                                                                                    marker = new google.maps.Marker({
+                                                                                        position: pos,
+                                                                                        map: map,
+                                                                                        draggable:true,
+                                                                                        title: "Arrastrame a tu negocio!!"
+                                                                                    });
+
+                                                                                });
+
+                                                                            }else{*/
+                                                                                //alert("Su navegador no soporta geolocalización");
+                                                                                aqp = {lat: -16.398999, lng: -71.536503};
+                                                                                map = new google.maps.Map(document.getElementById('map'), {
+                                                                                    center: aqp,
+                                                                                    zoom: 17
+                                                                                });
+                                                                                marker = new google.maps.Marker({
+                                                                                    position: aqp,
+                                                                                    map: map,
+                                                                                    draggable:true,
+                                                                                    title: "Arrastrame a tu negocio!!"
+                                                                                });
+                                                                            //}
+
+                                                                            map.addListener('center_changed', function() {
+                                                                                // 3 seconds after the center of the map has changed, pan back to the
+                                                                                // marker.
+                                                                                window.setTimeout(function() {
+                                                                                    map.panTo(marker.getPosition());
+                                                                                }, 10000);
+                                                                            });
+
+                                                                            map.addListener('click', function() {
+                                                                                marker = new google.maps.Marker({
+                                                                                    position: aqp,
+                                                                                    map: map,
+                                                                                    draggable:true,
+                                                                                    title: "Arrastrame!!"
+                                                                                });
+                                                                                map.setZoom(17);
+                                                                                map.setCenter(marker.getPosition());
+                                                                            });
+/*
+                                                                            map.addListener('rightclick',function(){
+                                                                                marker.setMap(null);
+                                                                                marker = null;
+                                                                            });*/
+
+                                                                            google.maps.event.addListener(marker,'dragend',function(event) {
+                                                                                document.getElementById("latitud").value = this.getPosition().lat();
+                                                                                document.getElementById("longitud").value = this.getPosition().lng();
+                                                                            });
+                                                                        }
+                                                                    </script>
+                                                                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyn8SmflpFXcyV89QKfgdnW03wwytrJTM&callback=initMap"
+                                                                            async defer></script>
+                                                                </div>
                                                             </div>
                                                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                                                 <input onclick='testad();' type='button' value='🔊 Probar' />
