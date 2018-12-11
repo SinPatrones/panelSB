@@ -1,6 +1,6 @@
 <?php
-include_once '../assets/connection.php';
-include_once '../assets/security.php';
+include_once "connection.php";
+include_once "security.php";
 
 class Login{
     private $security =null;

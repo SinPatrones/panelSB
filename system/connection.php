@@ -2,9 +2,12 @@
 class ConnectionDb{
     private static $instance = null;
     private static $host = "localhost";
-    private static $user = "u291211255_sbanu";
-    private static $pass = "lST9gh3OhU14~3t]@n";
-    private static $db = "u291211255_anunc";
+    //private static $user = "u291211255_sbanu";
+    private static $user = "root";
+    //private static $pass = "lST9gh3OhU14~3t]@n";
+    private static $pass = "";
+    //private static $db = "u291211255_anunc";
+    private static $db = "anunciantesdb";
     private static $mysql = null;
     private function __construct(){
         // singleton mode
