@@ -1,9 +1,9 @@
 <?php
-include_once "system/Login.php";
+include_once "system/Anunciantes.php";
 
-$login = Login::getInstance();
+$anun = Anunciantes::getInstance();
+$rpta = $anun->obtenerNomApeSex(1);
 
-$id = 0;
-$login->insertNewLogin("sinpatrones1@gmail.com", "123456", $id);
-
-echo $id;
+echo $rpta['nombres']."<br>";
+echo $rpta['ap_paterno']."<br>";
+echo $rpta['ap_materno']."<br>";

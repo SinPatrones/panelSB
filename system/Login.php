@@ -1,6 +1,7 @@
 <?php
 include_once "connection.php";
 include_once "security.php";
+include_once "Anunciantes.php";
 
 class Login{
     private $security =null;
@@ -31,9 +32,10 @@ class Login{
             $sql = "INSERT INTO tbllogin(email, pass, token) VALUE ('$email','$pass','-')";
             $this->con->query($sql);
             $newId = $this->con->lastid();
-
+            $this->con->close();
             return true;
         }
+        $this->con->close();
         return false;
     }
 
@@ -50,6 +52,16 @@ class Login{
                 $result = $this->con->getarray($result);
                 if ($this->security->verifyEncryptObj($pass, $result['pass'])){
                     // pass correcta
+                    // GUARDANDO DATOS DE SESION EN EL SERVIDOR
+                    $anunciantes = Anunciantes::getInstance();
+                    $datosExtras = $anunciantes->obtenerNomApeSex($result['id_login']);
+
+                    session_start();
+                    $_SESSION["user"] = array();
+                    $_SESSION["user"]["id"] = $result['id_login'];
+                    $_SESSION["user"]["fullname"] = $datosExtras['nombres']." ".$datosExtras['ap_paterno']." ".$datosExtras['ap_materno'];
+
+                    //DEVOLVIENDO VALOR
                     return true;
                 }
                 // no es la clave
