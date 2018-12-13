@@ -110,5 +110,29 @@ class Anuncios{
         return false;
     }
 
+    public function editarAnuncio($idAnuncio, $contenido, $lat, $lon, $alcance, $estado){
+        if ($this->con->connect()){
+            $this->security->applySecurityToObj($idAnuncio);
+            $this->security->applySecurityToObj($contenido);
+            $this->security->applySecurityToObj($lat);
+            $this->security->applySecurityToObj($lon);
+            $this->security->applySecurityToObj($alcance);
+            $this->security->applySecurityToObj($estado);
 
+            $this->con->realescape($idAnuncio);
+            $this->con->realescape($contenido);
+            $this->con->realescape($lat);
+            $this->con->realescape($lon);
+            $this->con->realescape($alcance);
+            $this->con->realescape($estado);
+
+            $sql = "UPDATE tblanuncios SET contenido='$contenido', pos_latitud='$lat', pos_longitud='$lon', tipo_alcance='$alcance', estado='$estado' WHERE id_anuncio=".$idAnuncio;
+
+            if ($this->con->query($sql)){
+                return true;
+            }
+            return false;
+        }
+        return false;
+    }
 }

@@ -1,16 +1,5 @@
 <?php
     include_once "page/start.php";
-    include_once "system/Anuncios.php";
-    $editMode = false;
-
-    $anuncios = Anuncios::getInstance();
-    $datosAnuncio = null;
-
-    if (isset($_POST['id'])){
-        $editMode = true;
-        $datosAnuncio = $anuncios->obtenerDatosAnuncio($_POST['id']);
-        $datosAnuncio = mysqli_fetch_array($datosAnuncio);
-    }
 ?>
 <!doctype html>
 <html class="no-js" lang="es">
@@ -113,7 +102,7 @@
                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                             <div class="review-content-section">
                                                 <div id="dropzone1" class="pro-ad addcoursepro">
-                                                    <form <?php if ($editMode) echo "action='page/updateAd.php'"; else echo "action=\"page/insertAd.php\""; ?> class="dropzone dropzone-custom needsclick addcourse" id="demo1-upload" method="post">
+                                                    <form action="page/ad.php" class="dropzone dropzone-custom needsclick addcourse" id="demo1-upload" method="post">
                                                         <div class="row">
                                                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                                                 <div class="form-group">
@@ -122,15 +111,15 @@
                                                                 <label for="scope">Alcance: </label>
                                                                 <select name="scope" id="scope" class="form-control" data-placeholder="Seleccione">
                                                                     <option disabled>Seleccione Prioridad</option>
-                                                                    <option value="1" <?php if ($datosAnuncio['tipo_alcance'] == 1) echo "selected";?> >Local</option>
-                                                                    <option value="2" <?php if ($datosAnuncio['tipo_alcance'] == 2) echo "selected";?> >Distrital</option>
-                                                                    <option value="3" <?php if ($datosAnuncio['tipo_alcance'] == 3) echo "selected";?> >Regional</option>
+                                                                    <option value="1">Local</option>
+                                                                    <option value="2">Distrital</option>
+                                                                    <option value="3">Regional</option>
                                                                 </select>
                                                                 <br>
                                                                 <label for="status">Estado: </label>
                                                                 <select name="status" id="status" class="form-control">
-                                                                    <option value="0" <?php if ($datosAnuncio['estado'] == 0) echo "selected";?>>Inactivo</option>
-                                                                    <option value="1" <?php if ($datosAnuncio['estado'] == 1) echo "selected";?>>Activo</option>
+                                                                    <option value="0">Inactivo</option>
+                                                                    <option value="1">Activo</option>
                                                                 </select>
                                                                 <br>
                                                                 <div align="center">
@@ -139,77 +128,116 @@
                                                                 <br>
                                                                 <div align="center">
                                                                     <label for="latitud">Latitud:</label>
-                                                                    <input type="text" id="latitud" name="latitud">
+                                                                    <input type="text" id="latitud" name="latitud" disabled>
                                                                     <label for="longitud">Longitud:</label>
-                                                                    <input type="text" id="longitud" name="longitud">
+                                                                    <input type="text" id="longitud" name="longitud" disabled>
                                                                 </div>
                                                                 <br>
                                                                 <!--<iframe width="100%" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q=Socabaya&key=AIzaSyDyn8SmflpFXcyV89QKfgdnW03wwytrJTM" allowfullscreen></iframe>
                                                                 <br>-->
-                                                                <?php
-                                                                if ($editMode){?>
-                                                                    <div style="width: 100%; height: 450px">
-                                                                        <div id="map"></div>
-                                                                        <script>
-                                                                            var map;
-                                                                            var marker;
-                                                                            var pos;
-                                                                            function initMap() {
-                                                                                pos = {lat: <?php echo $datosAnuncio['pos_latitud'] ?>, lng: <?php echo $datosAnuncio['pos_longitud']; ?>};
+                                                                <div style="width: 100%; height: 450px">
+                                                                    <div id="map"></div>
+                                                                    <script>
+                                                                        var map;
+                                                                        var marker;
+                                                                        var pos;
+                                                                        function initMap() {
+                                                                            if(navigator.geolocation) {
+                                                                                navigator.geolocation.getCurrentPosition(function(position) {
+                                                                                    pos = {lat: position.coords.latitude, lng: position.coords.longitude};
+                                                                                    document.getElementById("latitud").value = pos.lat;
+                                                                                    document.getElementById("longitud").value = pos.lng;
 
-                                                                                document.getElementById("latitud").value = pos.lat;
-                                                                                document.getElementById("longitud").value = pos.lng;
-
-                                                                                map = new google.maps.Map(document.getElementById('map'), {
-                                                                                    center: pos,
-                                                                                    zoom: 17
-                                                                                });
-                                                                                marker = new google.maps.Marker({
-                                                                                    position: pos,
-                                                                                    map: map,
-                                                                                    draggable:true,
-                                                                                    title: "Arrastrame a tu negocio!!"
-                                                                                });
-
-                                                                                map.addListener('center_changed', function() {
-                                                                                    // 3 seconds after the center of the map has changed, pan back to the
-                                                                                    // marker.
-                                                                                    window.setTimeout(function() {
-                                                                                        map.panTo(marker.getPosition());
-                                                                                    }, 10000);
-                                                                                });
-                                                                                map.addListener('click', function() {
+                                                                                    map = new google.maps.Map(document.getElementById('map'), {
+                                                                                        center: pos,
+                                                                                        zoom: 17
+                                                                                    });
                                                                                     marker = new google.maps.Marker({
-                                                                                        position: aqp,
+                                                                                        position: pos,
                                                                                         map: map,
                                                                                         draggable:true,
-                                                                                        title: "Arrastrame!!"
+                                                                                        title: "Arrastrame a tu negocio!!"
                                                                                     });
-                                                                                    map.setZoom(17);
-                                                                                    map.setCenter(marker.getPosition());
+
+                                                                                    map.addListener('center_changed', function() {
+                                                                                        // 3 seconds after the center of the map has changed, pan back to the
+                                                                                        // marker.
+                                                                                        window.setTimeout(function() {
+                                                                                            map.panTo(marker.getPosition());
+                                                                                        }, 10000);
+                                                                                    });
+                                                                                    map.addListener('click', function() {
+                                                                                        marker = new google.maps.Marker({
+                                                                                            position: aqp,
+                                                                                            map: map,
+                                                                                            draggable:true,
+                                                                                            title: "Arrastrame!!"
+                                                                                        });
+                                                                                        map.setZoom(17);
+                                                                                        map.setCenter(marker.getPosition());
+                                                                                    });
+                                                                                    google.maps.event.addListener(marker,'dragend',function(event) {
+                                                                                        document.getElementById("latitud").value = this.getPosition().lat();
+                                                                                        document.getElementById("longitud").value = this.getPosition().lng();
+                                                                                        map.panTo(marker.getPosition());
+                                                                                    });
+
+                                                                                }, function(notPosition){
+                                                                                    pos = {lat: -16.398999, lng: -71.536503};
+                                                                                    map = new google.maps.Map(document.getElementById('map'), {
+                                                                                        center: pos,
+                                                                                        zoom: 17
+                                                                                    });
+                                                                                    marker = new google.maps.Marker({
+                                                                                        position: pos,
+                                                                                        map: map,
+                                                                                        draggable:true,
+                                                                                        title: "Arrastrame a tu negocio!!"
+                                                                                    });
+
+                                                                                    map.addListener('center_changed', function() {
+                                                                                        // 3 seconds after the center of the map has changed, pan back to the
+                                                                                        // marker.
+                                                                                        window.setTimeout(function() {
+                                                                                            map.panTo(marker.getPosition());
+                                                                                        }, 10000);
+                                                                                    });
+                                                                                    map.addListener('click', function() {
+                                                                                        marker = new google.maps.Marker({
+                                                                                            position: aqp,
+                                                                                            map: map,
+                                                                                            draggable:true,
+                                                                                            title: "Arrastrame!!"
+                                                                                        });
+                                                                                        map.setZoom(17);
+                                                                                        map.setCenter(marker.getPosition());
+                                                                                    });
+                                                                                    google.maps.event.addListener(marker,'dragend',function(event) {
+                                                                                        document.getElementById("latitud").value = this.getPosition().lat();
+                                                                                        document.getElementById("longitud").value = this.getPosition().lng();
+                                                                                        map.panTo(marker.getPosition());
+                                                                                    });
                                                                                 });
-                                                                                google.maps.event.addListener(marker,'dragend',function(event) {
-                                                                                    document.getElementById("latitud").value = this.getPosition().lat();
-                                                                                    document.getElementById("longitud").value = this.getPosition().lng();
-                                                                                    map.panTo(marker.getPosition());
-                                                                                });
+                                                                                /*
+                                                                                map.addListener('rightclick',function(){
+                                                                                    marker.setMap(null);
+                                                                                    marker = null;
+                                                                                });*/
+
+                                                                            }else{
+                                                                                alert("Su navegador no soporta geolocalización");
                                                                             }
-                                                                        </script>
-                                                                        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyn8SmflpFXcyV89QKfgdnW03wwytrJTM&callback=initMap"
-                                                                        async defer></script>
-                                                                    </div>
-                                                                <?php
-                                                                }else{
-                                                                    include_once "includes/showPosition.php";
-                                                                }
-                                                                ?>
-                                                                ?>
+                                                                        }
+                                                                    </script>
+                                                                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyn8SmflpFXcyV89QKfgdnW03wwytrJTM&callback=initMap"
+                                                                            async defer></script>
+                                                                </div>
                                                             </div>
                                                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                                                 <input onclick='testad();' type='button' value='🔊 Probar' />
                                                                 <div class="form-group">
                                                                     <textarea id="content" name="content" placeholder="Escriba el Anuncio que será reporducido.
-Ejemplo. (Bienvenidos. Estas viajando en un bus inteligente con SmartBas. Disfuta del viaje.)" required><?php if ($editMode) echo $datosAnuncio['contenido'];  ?></textarea>
+Ejemplo. (Bienvenidos. Estas viajando en un bus inteligente con SmartBas. Disfuta del viaje.)" required></textarea>
                                                                 </div>
 
                                                             </div>
@@ -218,7 +246,7 @@ Ejemplo. (Bienvenidos. Estas viajando en un bus inteligente con SmartBas. Disfut
                                                             <div class="col-lg-12">
                                                                 <hr>
                                                                 <div class="payment-adress">
-                                                                    <button type="submit" class="btn btn-primary waves-effect waves-light" <?php if($editMode) echo "name=\"id_anuncio\" value=\"".$datosAnuncio['id_anuncio']."\""; ?> ><?php if($editMode) echo "Modificar Anuncio"; else echo "Crear Anuncio"; ?></button>
+                                                                    <button type="submit" class="btn btn-primary waves-effect waves-light">Crear Anuncio</button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -299,7 +327,7 @@ Ejemplo. (Bienvenidos. Estas viajando en un bus inteligente con SmartBas. Disfut
 
 <script>
     if(responsiveVoice.voiceSupport()) {
-        responsiveVoice.speak("<?php if($editMode) echo "Editando anuncio"; else echo "Creando un anuncio para SmartBas."; ?>", "Spanish Female");
+        responsiveVoice.speak("Creando un anuncio para SmartBas.", "Spanish Female");
     }
     function testad(){
         var text = document.getElementById("content").value;
