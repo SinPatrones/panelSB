@@ -102,7 +102,7 @@
                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                             <div class="review-content-section">
                                                 <div id="dropzone1" class="pro-ad addcoursepro">
-                                                    <form action="page/ad.php" class="dropzone dropzone-custom needsclick addcourse" id="demo1-upload" method="post">
+                                                    <form action="page/insertAd.php" class="dropzone dropzone-custom needsclick addcourse" id="demo1-upload" method="post">
                                                         <div class="row">
                                                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                                                 <div class="form-group">
@@ -128,9 +128,9 @@
                                                                 <br>
                                                                 <div align="center">
                                                                     <label for="latitud">Latitud:</label>
-                                                                    <input type="text" id="latitud" name="latitud" disabled>
+                                                                    <input type="text" id="latitud" name="latitud">
                                                                     <label for="longitud">Longitud:</label>
-                                                                    <input type="text" id="longitud" name="longitud" disabled>
+                                                                    <input type="text" id="longitud" name="longitud">
                                                                 </div>
                                                                 <br>
                                                                 <!--<iframe width="100%" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q=Socabaya&key=AIzaSyDyn8SmflpFXcyV89QKfgdnW03wwytrJTM" allowfullscreen></iframe>
