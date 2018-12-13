@@ -54,13 +54,13 @@ class Anuncios{
             $this->security->applySecurityToObj($id);
             $this->con->realescape($id);
 
-            $sql = "SELECT * FROM tblanuncios WHERE id_anuncio=".$id;
+            $sql = "SELECT * FROM tblanuncios WHERE id_anunciante=".$id;
 
             $result = $this->con->query($sql);
 
             if($this->con->getnumrows($result) > 0){
                 $this->con->close();
-                return $this->con->getarray($result);
+                return $result;
             }else{
                 $this->con->close();
                 return false;
@@ -80,7 +80,7 @@ class Anuncios{
 
             if($this->con->getnumrows($result) > 0){
                 $this->con->close();
-                return $this->con->getarray($result);
+                return $result;
             }else{
                 $this->con->close();
                 return false;

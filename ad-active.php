@@ -1,7 +1,7 @@
 <?php
     include_once "page/start.php";
-    include_once "system/ad.php";
-    $ad = AdFunctions::getInstance();
+    include_once "system/Anuncios.php";
+    $anuncios = Anuncios::getInstance();
 ?>
 <!doctype html>
 <html class="no-js" lang="es">
@@ -85,9 +85,67 @@
         <?php include_once 'includes/nav.php'; ?>
         <div class="courses-area">
             <div class="container-fluid">
-                <?php
-                    $ad->listactive();
-                ?>
+                <div align="center">
+                    <h2>Lista de Anuncios creados</h2>
+                </div>
+
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <td align="center">Id Anuncio</td>
+                            <td align="center">Contenido</td>
+                            <td align="center">Estado</td>
+                            <td align="center">Alcance</td>
+                            <td align="center">Fecha de creación</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </thead>
+
+                    <?php
+                        $ListaDeAnuncios = $anuncios->obtenerInfoAnuncios($_SESSION["user"]["id"]);
+                        while ($row = mysqli_fetch_array($ListaDeAnuncios)){
+                            echo "<tr>";
+                                echo "<td align='center'>".$row['id_anuncio']."</td>";
+                                echo "<td align='center'>".$row['contenido']."</td>";
+                                if ($row['estado'] == "0"){
+                                    echo "<td align='center'>Inactivo</td>";
+                                }else{
+                                    echo "<td align='center'>Activo</td>";
+                                }
+                                switch ($row['tipo_alcance']){
+                                    case "1":
+                                        echo "<td align='center'>Local</td>";
+                                        break;
+                                    case "2";
+                                        echo "<td align='center'>Distrital</td>";
+                                        break;
+                                    case "3";
+                                        echo "<td align='center'>Regional</td>";
+                                        break;
+                                }
+                                echo "<td align='center'>".$row['fecha_creacion']."</td>";
+                                echo "<td align='center'><button type='button' class='btn btn-primary' data-toggle='modal' data-target='#myModal' onclick='alert(\"Hola\");'>VER</button> </td>";
+                                echo "<td align='center'><a class='btn btn-info' href=''>EDITAR</a> </td>";
+                                echo "<td align='center'><a class='btn btn-danger' href=''>BORRAR</a> </td>";
+                            echo "</tr>";
+                        }
+                    ?>
+
+                    <tfoot>
+                        <tr>
+                            <td align="center">Id Anuncio</td>
+                            <td align="center">Contenido</td>
+                            <td align="center">Estado</td>
+                            <td align="center">Alcance</td>
+                            <td align="center">Fecha de creación</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
 
             </div>
         </div>
