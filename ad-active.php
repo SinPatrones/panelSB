@@ -127,7 +127,7 @@
                                 }
                                 echo "<td align='center'>".$row['fecha_creacion']."</td>";
                                 echo "<td align='center'><button type='button' class='btn btn-primary' data-toggle='modal' data-target='#myModal' onclick='alert(\"Hola\");'>VER</button> </td>";
-                                echo "<td align='center'><a class='btn btn-info' href=''>EDITAR</a> </td>";
+                                echo "<td align='center'><form action='ad.php' method='post'><button type='submit' class='btn btn-info' name='id' value='".$row['id_anuncio']."'>EDITAR</button> </form></td>";
                                 echo "<td align='center'><a class='btn btn-danger' href=''>BORRAR</a> </td>";
                             echo "</tr>";
                         }
@@ -147,6 +147,28 @@
                     </tfoot>
                 </table>
 
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" role="dialog">
+                    <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Modal Header</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div id="contenido" "></div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
             </div>
         </div>
         <?php include_once 'includes/footer.php'; ?>
@@ -154,7 +176,8 @@
 
     <!-- jquery
 		============================================ -->
-    <script src="js/vendor/jquery-1.12.4.min.js"></script>
+    <!--<script src="js/vendor/jquery-1.12.4.min.js"></script>-->
+    <script src="js/vendor/jquery-3.3.1.min.js"></script>
     <!-- bootstrap JS
 		============================================ -->
     <script src="js/bootstrap.min.js"></script>

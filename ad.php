@@ -1,5 +1,16 @@
 <?php
     include_once "page/start.php";
+    include_once "system/Anuncios.php";
+    $editMode = false;
+
+    $anuncios = Anuncios::getInstance();
+    $datosAnuncio = null;
+
+    if (isset($_POST['id'])){
+        $editMode = true;
+        $datosAnuncio = $anuncios->obtenerDatosAnuncio($_POST['id']);
+        $datosAnuncio = mysqli_fetch_array($datosAnuncio);
+    }
 ?>
 <!doctype html>
 <html class="no-js" lang="es">
@@ -135,103 +146,64 @@
                                                                 <br>
                                                                 <!--<iframe width="100%" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q=Socabaya&key=AIzaSyDyn8SmflpFXcyV89QKfgdnW03wwytrJTM" allowfullscreen></iframe>
                                                                 <br>-->
-                                                                <div style="width: 100%; height: 450px">
-                                                                    <div id="map"></div>
-                                                                    <script>
-                                                                        var map;
-                                                                        var marker;
-                                                                        var pos;
-                                                                        function initMap() {
-                                                                            if(navigator.geolocation) {
-                                                                                navigator.geolocation.getCurrentPosition(function(position) {
-                                                                                    pos = {lat: position.coords.latitude, lng: position.coords.longitude};
-                                                                                    document.getElementById("latitud").value = pos.lat;
-                                                                                    document.getElementById("longitud").value = pos.lng;
+                                                                <?php
+                                                                if ($editMode){?>
+                                                                    <div style="width: 100%; height: 450px">
+                                                                        <div id="map"></div>
+                                                                        <script>
+                                                                            var map;
+                                                                            var marker;
+                                                                            var pos;
+                                                                            function initMap() {
+                                                                                pos = {lat: <?php echo $datosAnuncio['pos_latitud'] ?>, lng: <?php echo $datosAnuncio['pos_longitud']; ?>};
 
-                                                                                    map = new google.maps.Map(document.getElementById('map'), {
-                                                                                        center: pos,
-                                                                                        zoom: 17
-                                                                                    });
-                                                                                    marker = new google.maps.Marker({
-                                                                                        position: pos,
-                                                                                        map: map,
-                                                                                        draggable:true,
-                                                                                        title: "Arrastrame a tu negocio!!"
-                                                                                    });
+                                                                                document.getElementById("latitud").value = pos.lat;
+                                                                                document.getElementById("longitud").value = pos.lng;
 
-                                                                                    map.addListener('center_changed', function() {
-                                                                                        // 3 seconds after the center of the map has changed, pan back to the
-                                                                                        // marker.
-                                                                                        window.setTimeout(function() {
-                                                                                            map.panTo(marker.getPosition());
-                                                                                        }, 10000);
-                                                                                    });
-                                                                                    map.addListener('click', function() {
-                                                                                        marker = new google.maps.Marker({
-                                                                                            position: aqp,
-                                                                                            map: map,
-                                                                                            draggable:true,
-                                                                                            title: "Arrastrame!!"
-                                                                                        });
-                                                                                        map.setZoom(17);
-                                                                                        map.setCenter(marker.getPosition());
-                                                                                    });
-                                                                                    google.maps.event.addListener(marker,'dragend',function(event) {
-                                                                                        document.getElementById("latitud").value = this.getPosition().lat();
-                                                                                        document.getElementById("longitud").value = this.getPosition().lng();
-                                                                                        map.panTo(marker.getPosition());
-                                                                                    });
-
-                                                                                }, function(notPosition){
-                                                                                    pos = {lat: -16.398999, lng: -71.536503};
-                                                                                    map = new google.maps.Map(document.getElementById('map'), {
-                                                                                        center: pos,
-                                                                                        zoom: 17
-                                                                                    });
-                                                                                    marker = new google.maps.Marker({
-                                                                                        position: pos,
-                                                                                        map: map,
-                                                                                        draggable:true,
-                                                                                        title: "Arrastrame a tu negocio!!"
-                                                                                    });
-
-                                                                                    map.addListener('center_changed', function() {
-                                                                                        // 3 seconds after the center of the map has changed, pan back to the
-                                                                                        // marker.
-                                                                                        window.setTimeout(function() {
-                                                                                            map.panTo(marker.getPosition());
-                                                                                        }, 10000);
-                                                                                    });
-                                                                                    map.addListener('click', function() {
-                                                                                        marker = new google.maps.Marker({
-                                                                                            position: aqp,
-                                                                                            map: map,
-                                                                                            draggable:true,
-                                                                                            title: "Arrastrame!!"
-                                                                                        });
-                                                                                        map.setZoom(17);
-                                                                                        map.setCenter(marker.getPosition());
-                                                                                    });
-                                                                                    google.maps.event.addListener(marker,'dragend',function(event) {
-                                                                                        document.getElementById("latitud").value = this.getPosition().lat();
-                                                                                        document.getElementById("longitud").value = this.getPosition().lng();
-                                                                                        map.panTo(marker.getPosition());
-                                                                                    });
+                                                                                map = new google.maps.Map(document.getElementById('map'), {
+                                                                                    center: pos,
+                                                                                    zoom: 17
                                                                                 });
-                                                                                /*
-                                                                                map.addListener('rightclick',function(){
-                                                                                    marker.setMap(null);
-                                                                                    marker = null;
-                                                                                });*/
+                                                                                marker = new google.maps.Marker({
+                                                                                    position: pos,
+                                                                                    map: map,
+                                                                                    draggable:true,
+                                                                                    title: "Arrastrame a tu negocio!!"
+                                                                                });
 
-                                                                            }else{
-                                                                                alert("Su navegador no soporta geolocalización");
+                                                                                map.addListener('center_changed', function() {
+                                                                                    // 3 seconds after the center of the map has changed, pan back to the
+                                                                                    // marker.
+                                                                                    window.setTimeout(function() {
+                                                                                        map.panTo(marker.getPosition());
+                                                                                    }, 10000);
+                                                                                });
+                                                                                map.addListener('click', function() {
+                                                                                    marker = new google.maps.Marker({
+                                                                                        position: aqp,
+                                                                                        map: map,
+                                                                                        draggable:true,
+                                                                                        title: "Arrastrame!!"
+                                                                                    });
+                                                                                    map.setZoom(17);
+                                                                                    map.setCenter(marker.getPosition());
+                                                                                });
+                                                                                google.maps.event.addListener(marker,'dragend',function(event) {
+                                                                                    document.getElementById("latitud").value = this.getPosition().lat();
+                                                                                    document.getElementById("longitud").value = this.getPosition().lng();
+                                                                                    map.panTo(marker.getPosition());
+                                                                                });
                                                                             }
-                                                                        }
-                                                                    </script>
-                                                                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyn8SmflpFXcyV89QKfgdnW03wwytrJTM&callback=initMap"
-                                                                            async defer></script>
-                                                                </div>
+                                                                        </script>
+                                                                        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyn8SmflpFXcyV89QKfgdnW03wwytrJTM&callback=initMap"
+                                                                        async defer></script>
+                                                                    </div>
+                                                                <?php
+                                                                }else{
+                                                                    include_once "includes/createPosition.php";
+                                                                }
+                                                                ?>
+                                                                ?>
                                                             </div>
                                                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                                                 <input onclick='testad();' type='button' value='🔊 Probar' />
@@ -327,7 +299,7 @@ Ejemplo. (Bienvenidos. Estas viajando en un bus inteligente con SmartBas. Disfut
 
 <script>
     if(responsiveVoice.voiceSupport()) {
-        responsiveVoice.speak("Creando un anuncio para SmartBas.", "Spanish Female");
+        responsiveVoice.speak("<?php if($editMode) echo "Editando anuncio"; else echo "Creando un anuncio para SmartBas."; ?>", "Spanish Female");
     }
     function testad(){
         var text = document.getElementById("content").value;

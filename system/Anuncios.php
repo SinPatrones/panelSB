@@ -49,6 +49,7 @@ class Anuncios{
         return false;
     }
 
+    // OBTIENE TODA LA LISTA DE ANUNCIOS DE UN USUARIO ESPECIFICO
     public function obtenerInfoAnuncios($id){
         if($this->con->connect()){
             $this->security->applySecurityToObj($id);
@@ -75,6 +76,26 @@ class Anuncios{
             $this->con->realescape($id);
 
             $sql = "SELECT * FROM tblanuncios WHERE estado='".$estado."'";
+
+            $result = $this->con->query($sql);
+
+            if($this->con->getnumrows($result) > 0){
+                $this->con->close();
+                return $result;
+            }else{
+                $this->con->close();
+                return false;
+            }
+        }
+        return false;
+    }
+
+    public function obtenerDatosAnuncio($idAnuncio){
+        if($this->con->connect()){
+            $this->security->applySecurityToObj($id);
+            $this->con->realescape($id);
+
+            $sql = "SELECT * FROM tblanuncios WHERE id_anuncio=".$idAnuncio;
 
             $result = $this->con->query($sql);
 
