@@ -92,12 +92,10 @@
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr>
-                            <td align="center">Id Anuncio</td>
                             <td align="center">Contenido</td>
                             <td align="center">Estado</td>
                             <td align="center">Alcance</td>
                             <td align="center">Fecha de creación</td>
-                            <td></td>
                             <td></td>
                             <td></td>
                         </tr>
@@ -107,7 +105,6 @@
                         $ListaDeAnuncios = $anuncios->obtenerInfoAnuncios($_SESSION["user"]["id"]);
                         while ($row = mysqli_fetch_array($ListaDeAnuncios)){
                             echo "<tr>";
-                                echo "<td align='center'>".$row['id_anuncio']."</td>";
                                 echo "<td align='center'>".$row['contenido']."</td>";
                                 if ($row['estado'] == "0"){
                                     echo "<td align='center'>Inactivo</td>";
@@ -126,21 +123,19 @@
                                         break;
                                 }
                                 echo "<td align='center'>".$row['fecha_creacion']."</td>";
-                                echo "<td align='center'><button type='button' class='btn btn-primary' data-toggle='modal' data-target='#myModal' onclick='alert(\"Hola\");'>VER</button> </td>";
-                                echo "<td align='center'><form action='ad.php' method='post'><button type='submit' class='btn btn-info' name='id' value='".$row['id_anuncio']."'>EDITAR</button> </form></td>";
-                                echo "<td align='center'><a class='btn btn-danger' href=''>BORRAR</a> </td>";
+                                //echo "<td align='center'><button type='button' class='btn btn-primary' data-toggle='modal' data-target='#myModal' onclick='alert(\"Hola\");'>VER</button> </td>";
+                                echo "<td align='center'><form action='ad.php' method='post'><button type='submit' class='btn btn-info' name='id' value='".$row['id_anuncio']."'>VER / EDITAR</button> </form></td>";
+                                echo "<td align='center'><form action='ad-erase.php' method='post'><button type='submit' class='btn btn-danger' name='delete' value='".$row['id_anuncio']."'>BORRAR</button> </form></td>";
                             echo "</tr>";
                         }
                     ?>
 
                     <tfoot>
                         <tr>
-                            <td align="center">Id Anuncio</td>
                             <td align="center">Contenido</td>
                             <td align="center">Estado</td>
                             <td align="center">Alcance</td>
                             <td align="center">Fecha de creación</td>
-                            <td></td>
                             <td></td>
                             <td></td>
                         </tr>

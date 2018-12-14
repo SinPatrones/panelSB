@@ -219,6 +219,7 @@ Ejemplo. (Bienvenidos. Estas viajando en un bus inteligente con SmartBas. Disfut
                                                                 <hr>
                                                                 <div class="payment-adress">
                                                                     <button type="submit" class="btn btn-primary waves-effect waves-light" <?php if($editMode) echo "name=\"id_anuncio\" value=\"".$datosAnuncio['id_anuncio']."\""; ?> ><?php if($editMode) echo "Modificar Anuncio"; else echo "Crear Anuncio"; ?></button>
+                                                                    <a class="btn btn-info" href="ad-active.php">REGRESAR A LISTA</a>
                                                                 </div>
                                                             </div>
                                                         </div>

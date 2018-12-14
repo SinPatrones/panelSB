@@ -135,4 +135,21 @@ class Anuncios{
         }
         return false;
     }
+
+    public function eliminarAnuncio($idAnuncio){
+        if ($this->con->connect()){
+            $this->security->applySecurityToObj($idAnuncio);
+            $this->con->realescape($idAnuncio);
+
+            $sql = "DELETE FROM tblanuncios WHERE id_anuncio=".$idAnuncio;
+
+            if ($this->con->query($sql)){
+                $this->con->close();
+                return true;
+            }
+            $this->con->close();
+            return false;
+        }
+        return false;
+    }
 }
