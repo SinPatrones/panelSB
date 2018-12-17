@@ -12,9 +12,10 @@ if (isset($_SESSION["user"]["id"]) && isset($_POST['scope']) && isset($_POST['st
     $latitud = $_POST['latitud'];
     $longitud = $_POST['longitud'];
     $content = $_POST['content'];
+    $palabra_clave = $_POST['keyword'];
 
     date_default_timezone_set('America/Lima');
-    $rpta = $anuncio->crearAnuncio($id_user, $content, $latitud, $longitud, $scope, $status, date("Y-m-d"));
+    $rpta = $anuncio->crearAnuncio($id_user, $palabra_clave, $content, $latitud, $longitud, $scope, $status, date("Y-m-d"));
 
     if ($rpta){
         echo  '<script language="javascript">alert("Nuevo anuncio insertado.");</script>';

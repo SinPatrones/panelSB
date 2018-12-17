@@ -102,9 +102,9 @@
                         <div class="product-payment-inner-st">
                             <ul id="myTabedu1" class="tab-review-design">
                                 <li class="active"><a href="#description">Detalles de Anuncio</a></li>
-                                <p> <br> <br>Escoja bien la prioridad del anuncio para garantizar una excelente experiencia del sistema SmartBus. La prioridad máxima está reservado para aviso de labores académicas (Huelgas,Feriados). el servicio de movilidad, disponibilidad de trabajadores administrativos o anuncios de extrema urgencia del rector.</p>
-                                <p>También si desea informar sobre una conferencia o evento que es más de dos semanas puede seleccionar prioridad baja. Luego puede editarlo a prioridad media cuando las conferencias o eventos ocurran en menos de una semana.</p>
-                                <input onclick='responsiveVoice.speak("Escoja bien la prioridad del anuncio para garantizar una excelente experiencia del sistema SmartBas. La prioridad máxima está reservado para aviso de labores académicas como Huelgas y Feriados. El servicio de movilidad, disponibilidad de trabajadores administrativos o anuncios de extrema urgencia del rector. También si desea informar sobre una conferencia o evento que se dará en más de dos semanas puede seleccionar prioridad baja. Luego puede editarlo a prioridad media cuando las conferencias o eventos ocurran en menos de una semana.", "Spanish Female", {pitch: 1});' type='button' value='🔊 Leer Indicaciones' />
+                                <p> <br> <br>Para crear un anuncio, deberá especificar el alcance que tendrá, el punto de referencia en el mapa y el contenido, el cual es el audio que se emitira.</p>
+                                <p>No olvide que pude crearlo y tenerlo inactivo aun el anuncio para lanzarlo cuando vea conveniente. La palabra clave es una etiqueta breve que describira el anuncio, que sea usado para mostrar en los gráficos.</p>
+                                <input onclick='responsiveVoice.speak("Para crear un anuncio, deberá especificar el alcance que tendrá, el punto de referencia en el mapa y el contenido, el cual es el audio que se emitira. No olvide que pude crearlo y tenerlo inactivo aun el anuncio para lanzarlo cuando vea conveniente.", "Spanish Female", {pitch: 1});' type='button' value='🔊 Leer Indicaciones' />
 
                             </ul>
                             <div id="myTabContent" class="tab-content custom-product-edit">
@@ -212,6 +212,12 @@
 Ejemplo. (Bienvenidos. Estas viajando en un bus inteligente con SmartBas. Disfuta del viaje.)" required><?php if ($editMode) echo $datosAnuncio['contenido'];  ?></textarea>
                                                                 </div>
 
+                                                            </div>
+                                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                                <div class="form-group">
+                                                                    <label for="PalabraClave">Palabra Clave:</label>
+                                                                    <input id="PalabraClave" name="keyword" minlength="7" maxlength="20" <?php if($editMode) echo "value=\"".$datosAnuncio['palabra_clave']."\""; ?> required>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                         <div class="row">

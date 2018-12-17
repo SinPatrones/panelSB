@@ -18,7 +18,7 @@ class Anuncios{
         return self::$instance;
     }
 
-    public function crearAnuncio($id_anunciante, $contenido, $lat, $lon, $alcance, $estado, $fecha_creacion){
+    public function crearAnuncio($id_anunciante, $palabra_clave, $contenido, $lat, $lon, $alcance, $estado, $fecha_creacion){
         if ($this->con->connect()){
             $this->security->applySecurityToObj($id_anunciante);
             $this->security->applySecurityToObj($contenido);
@@ -36,7 +36,7 @@ class Anuncios{
             $this->con->realescape($estado);
             $this->con->realescape($fecha_creacion);
 
-            $sql = "INSERT INTO tblanuncios(id_anunciante,contenido,pos_latitud,pos_longitud,tipo_alcance,estado,fecha_creacion) VALUES($id_anunciante,'$contenido','$lat','$lon','$alcance','$estado','$fecha_creacion')";
+            $sql = "INSERT INTO tblanuncios(id_anunciante,contenido,palabra_clave,pos_latitud,pos_longitud,tipo_alcance,estado,fecha_creacion) VALUES($id_anunciante,'$contenido', '$palabra_clave','$lat','$lon','$alcance','$estado','$fecha_creacion')";
 
             $result = $this->con->query($sql);
             if($result){
@@ -50,17 +50,19 @@ class Anuncios{
     }
 
     // OBTIENE TODA LA LISTA DE ANUNCIOS DE UN USUARIO ESPECIFICO
-    public function obtenerInfoAnuncios($id){
+    public function obtenerInfoAnuncios($id, &$count = 0){
         if($this->con->connect()){
             $this->security->applySecurityToObj($id);
             $this->con->realescape($id);
 
             $sql = "SELECT * FROM tblanuncios WHERE id_anunciante=".$id;
+            $sql2 = "";
 
             $result = $this->con->query($sql);
 
             if($this->con->getnumrows($result) > 0){
                 $this->con->close();
+                $count = $this->con->getnumrows($result);
                 return $result;
             }else{
                 $this->con->close();
@@ -70,17 +72,18 @@ class Anuncios{
         return false;
     }
 
-    public function obtenerAnunciosPorEstado($estado){
+    public function obtenerAnunciosPorEstado($idUser, $estado, &$count=0){
         if($this->con->connect()){
             $this->security->applySecurityToObj($id);
             $this->con->realescape($id);
 
-            $sql = "SELECT * FROM tblanuncios WHERE estado='".$estado."'";
+            $sql = "SELECT * FROM tblanuncios WHERE id_anunciante=".$idUser." AND estado='".$estado."'";
 
             $result = $this->con->query($sql);
 
             if($this->con->getnumrows($result) > 0){
                 $this->con->close();
+                $count = $this->con->getnumrows($result);
                 return $result;
             }else{
                 $this->con->close();
@@ -110,7 +113,7 @@ class Anuncios{
         return false;
     }
 
-    public function editarAnuncio($idAnuncio, $contenido, $lat, $lon, $alcance, $estado){
+    public function editarAnuncio($idAnuncio, $contenido, $palabra_clave, $lat, $lon, $alcance, $estado){
         if ($this->con->connect()){
             $this->security->applySecurityToObj($idAnuncio);
             $this->security->applySecurityToObj($contenido);
@@ -126,7 +129,7 @@ class Anuncios{
             $this->con->realescape($alcance);
             $this->con->realescape($estado);
 
-            $sql = "UPDATE tblanuncios SET contenido='$contenido', pos_latitud='$lat', pos_longitud='$lon', tipo_alcance='$alcance', estado='$estado' WHERE id_anuncio=".$idAnuncio;
+            $sql = "UPDATE tblanuncios SET contenido='$contenido', palabra_clave='$palabra_clave', pos_latitud='$lat', pos_longitud='$lon', tipo_alcance='$alcance', estado='$estado' WHERE id_anuncio=".$idAnuncio;
 
             if ($this->con->query($sql)){
                 return true;

@@ -92,6 +92,7 @@
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr>
+                            <td align="center">Palabra Clave</td>
                             <td align="center">Contenido</td>
                             <td align="center">Estado</td>
                             <td align="center">Alcance</td>
@@ -105,6 +106,7 @@
                         $ListaDeAnuncios = $anuncios->obtenerInfoAnuncios($_SESSION["user"]["id"]);
                         while ($row = mysqli_fetch_array($ListaDeAnuncios)){
                             echo "<tr>";
+                                echo "<td align='center'>".$row['palabra_clave']."</td>";
                                 echo "<td align='center'>".$row['contenido']."</td>";
                                 if ($row['estado'] == "0"){
                                     echo "<td align='center'>Inactivo</td>";
@@ -132,6 +134,7 @@
 
                     <tfoot>
                         <tr>
+                            <td align="center">Palabra Clave</td>
                             <td align="center">Contenido</td>
                             <td align="center">Estado</td>
                             <td align="center">Alcance</td>

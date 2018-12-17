@@ -23,7 +23,7 @@
                         <ul class="submenu-angle" aria-expanded="false">
                             <li><a title="Crear Anuncio" href="ad.php"><span class="mini-sub-pro">Nuevo Anuncio</span></a></li>
                             <li><a title="Ver Anuncios Activos" href="ad-active.php"><span class="mini-sub-pro">Mis Anuncios</span></a></li>
-                            <li><a title="Todos los anuncios activos" href="edit-professor.html"><span class="mini-sub-pro">Todos los anuncios</span></a></li>
+                            <li><a title="Todos los anuncios activos" href="ad-statistics.php"><span class="mini-sub-pro">Estadisticas</span></a></li>
                         </ul>
                     </li>
                 </ul>

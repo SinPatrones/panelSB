@@ -9,8 +9,9 @@ $status = $_POST['status'];
 $latitud = $_POST['latitud'];
 $longitud = $_POST['longitud'];
 $content = $_POST['content'];
+$palabra_clave = $_POST['keyword'];
 
-$rpta = $anuncios->editarAnuncio($id_anuncio, $content, $latitud, $longitud, $scope, $status);
+$rpta = $anuncios->editarAnuncio($id_anuncio, $content, $palabra_clave, $latitud, $longitud, $scope, $status);
 
 if ($rpta){
     echo  '<script language="javascript">alert("Se modifico el anuncio correctamente.");</script>';
