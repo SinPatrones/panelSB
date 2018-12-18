@@ -71,9 +71,6 @@ if ($gestiondatos->obtenerDatosGraficos($_SESSION['user']['id'], $etiquetas, $va
 		============================================ -->
     <link rel="stylesheet" href="css/calendar/fullcalendar.min.css">
     <link rel="stylesheet" href="css/calendar/fullcalendar.print.min.css">
-    <!-- accordions CSS
-         ============================================ -->
-    <link rel="stylesheet" href="css/accordions.css">
     <!-- style CSS
 		============================================ -->
     <link rel="stylesheet" href="style.css">
@@ -200,7 +197,7 @@ if ($gestiondatos->obtenerDatosGraficos($_SESSION['user']['id'], $etiquetas, $va
 
 <!-- jquery
 		============================================ -->
-<script src="js/vendor/jquery-3.3.1.min.js"></script>
+<script src="js/vendor/jquery-1.12.4.min.js"></script>
 <!-- bootstrap JS
     ============================================ -->
 <script src="js/bootstrap.min.js"></script>
@@ -230,6 +227,10 @@ if ($gestiondatos->obtenerDatosGraficos($_SESSION['user']['id'], $etiquetas, $va
     ============================================ -->
 <script src="js/metisMenu/metisMenu.min.js"></script>
 <script src="js/metisMenu/metisMenu-active.js"></script>
+<!-- Charts JS
+    ============================================ -->
+<script src="js/charts/Chart.js"></script>
+<script src="js/charts/line-chart.js"></script>
 <!-- tab JS
     ============================================ -->
 <script src="js/tab.js"></script>
@@ -242,7 +243,6 @@ if ($gestiondatos->obtenerDatosGraficos($_SESSION['user']['id'], $etiquetas, $va
 <!-- tawk chat JS
     ============================================ -->
 <script src="js/tawk-chat.js"></script>
-<script src="js/charts/Chart.js"></script>
 
 
 <script type="application/javascript" language="JavaScript">
