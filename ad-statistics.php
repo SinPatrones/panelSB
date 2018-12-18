@@ -77,6 +77,9 @@ if ($gestiondatos->obtenerDatosGraficos($_SESSION['user']['id'], $etiquetas, $va
     <!-- responsive CSS
 		============================================ -->
     <link rel="stylesheet" href="css/responsive.css">
+    <!-- Theme UNSA SmartBus
+		============================================ -->
+    <link rel="stylesheet" href="css/smartbus.css">
     <!-- modernizr JS
 		============================================ -->
     <script src="js/vendor/modernizr-2.8.3.min.js"></script>
