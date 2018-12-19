@@ -188,6 +188,7 @@ if ($gestiondatos->obtenerDatosGraficos($_SESSION['user']['id'], $etiquetas, $va
                                                 }else{?>
                                                     <div align="center">
                                                         <h2>NO HAY DATOS PARA MOSTRAR</h2>
+                                                        <p><a class="btn btn-primary" href="ad.php">CREAR ANUNCIO</a></p>
                                                     </div>
                                                 <?php
                                                 }

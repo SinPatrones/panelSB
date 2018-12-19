@@ -146,7 +146,7 @@
                 </table>";
 
                 }else{
-                    echo "<div align='center'><h2>USTED NO TIENEN NINGUN ANUNCIO CREADO</h2></div>";
+                    echo "<div align='center'><h2>USTED NO TIENEN NINGUN ANUNCIO CREADO</h2><p><a class=\"btn btn-primary\" href=\"ad.php\">CREAR ANUNCIO</a></p></div>";
                 }
 
                 ?>
