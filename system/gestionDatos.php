@@ -18,7 +18,8 @@ class gestionDatos{
 
     public function obtenerDatosGraficos($id_user, &$labels_array, &$values_array, &$id_reproducciones){
         if ($this->con->connect()){
-            $sql = "SELECT tblreportes.id_reporte_anuncio, tblreportes.id_anunciante_reporte, tblreportes.reproducciones, tblanuncios.palabra_clave FROM tblreportes INNER JOIN tblanuncios ON tblanuncios.id_anuncio = tblreportes.id_reporte_anuncio WHERE tblreportes.id_anunciante_reporte=".$id_user." ORDER BY tblanuncios.fecha_creacion DESC";
+            //$sql = "SELECT tblreportes.id_reporte_anuncio, tblreportes.id_anunciante_reporte, tblreportes.reproducciones, tblanuncios.palabra_clave FROM tblreportes INNER JOIN tblanuncios ON tblanuncios.id_anuncio = tblreportes.id_reporte_anuncio WHERE tblreportes.id_anunciante_reporte=".$id_user." ORDER BY tblanuncios.fecha_creacion DESC";
+            $sql = "SELECT tblcontadoranuncios.id_anuncio_ca,tblcontadoranuncios.id_anunciante_ca, tblcontadoranuncios.reproducciones, tblanuncios.palabra_clave FROM tblcontadoranuncios INNER JOIN tblanuncios ON tblanuncios.id_anuncio = tblcontadoranuncios.id_anuncio_ca WHERE tblcontadoranuncios.id_anunciante_ca=$id_user ORDER BY tblanuncios.fecha_creacion DESC";
 
             $tmp_labels = array();
             $tmp_values = array();
@@ -33,7 +34,7 @@ class gestionDatos{
             while($row = mysqli_fetch_array($result)){
                 array_push($tmp_labels, $row['palabra_clave']);
                 array_push($tmp_values, $row['reproducciones']);
-                $tmp_id_rpd[$row['id_reporte_anuncio']] = $row['reproducciones'];
+                $tmp_id_rpd[$row['id_anuncio_ca']] = $row['reproducciones'];
             }
 
             $labels_array = $tmp_labels;

@@ -113,11 +113,11 @@ if ($gestiondatos->obtenerDatosGraficos($_SESSION['user']['id'], $etiquetas, $va
                                                     <div class="row">
                                                         <div class="col-md-12 col-lg-6">
                                                             <label for="activos">Avisos Activos: </label>
-                                                            <input id="activos" value="<?php echo $AnunciosActivos?>" disabled>
+                                                            <input id="activos" value="<?php if ($AnunciosActivos > 0) echo $AnunciosActivos; else echo "0";?>" disabled>
                                                         </div>
                                                         <div class="col-md-12 col-lg-6">
                                                             <label for="inactivos">Avisos Inactivos: </label>
-                                                            <input id="inactivos" value="<?php echo $AnunciosInactivos?>" disabled>
+                                                            <input id="inactivos" value="<?php if ($AnunciosInactivos > 0) echo $AnunciosInactivos; else echo "0";?>" disabled>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -266,15 +266,6 @@ if ($gestiondatos->obtenerDatosGraficos($_SESSION['user']['id'], $etiquetas, $va
 
     (function ($) {
         "use strict";
-        var l_labels = new Array();
-        var num = 80;
-        for (var i = 0; i < num; i++){
-            l_labels.push("Day " + i.toString());
-        }
-        var l_values = new Array();
-        for (var j = 0; j < num; j++){
-            l_values.push(aleatorio(0, 30));
-        }
         var ctx = document.getElementById("linechartstepped");
         linechartstepped = new Chart(ctx, {
             type: 'line',
