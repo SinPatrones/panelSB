@@ -109,59 +109,62 @@ if ($gestiondatos->obtenerDatosGraficos($_SESSION['user']['id'], $etiquetas, $va
                                         <div class="review-content-section">
                                             <div id="dropzone1" class="pro-ad addcoursepro">
                                                 <h2 align="center">DATOS GENERADOS DE ANUNCIOS</h2>
+                                                <?php
+                                                if ($count > 0){
+                                                    ?>
                                                 <div align="center">
                                                     <div class="row">
                                                         <div class="col-md-12 col-lg-6">
                                                             <label for="activos">Avisos Activos: </label>
-                                                            <input id="activos" value="<?php if ($AnunciosActivos > 0) echo $AnunciosActivos; else echo "0";?>" disabled>
+                                                            <input id="activos" value="<?php if ($AnunciosActivos > 0) echo $AnunciosActivos; else echo "0";?>" readonly>
                                                         </div>
                                                         <div class="col-md-12 col-lg-6">
                                                             <label for="inactivos">Avisos Inactivos: </label>
-                                                            <input id="inactivos" value="<?php if ($AnunciosInactivos > 0) echo $AnunciosInactivos; else echo "0";?>" disabled>
+                                                            <input id="inactivos" value="<?php if ($AnunciosInactivos > 0) echo $AnunciosInactivos; else echo "0";?>" readonly>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <table class="table table-striped table-striped">
                                                     <thead>
-                                                        <tr>
-                                                            <td align="center" >Palabra Clave</td>
-                                                            <td align="center" >Contenido Anuncio</td>
-                                                            <td align="center">Estado</td>
-                                                            <td align="center">Fecha de Creación</td>
-                                                            <td align="center">Tipo de Alcance</td>
-                                                            <td align="center">Reproducciones</td>
-                                                        </tr>
+                                                    <tr>
+                                                        <td align="center" >Palabra Clave</td>
+                                                        <td align="center" >Contenido Anuncio</td>
+                                                        <td align="center">Estado</td>
+                                                        <td align="center">Fecha de Creación</td>
+                                                        <td align="center">Tipo de Alcance</td>
+                                                        <td align="center">Reproducciones</td>
+                                                    </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <?php
-                                                            while($row = mysqli_fetch_array($allData)){
-                                                                echo "<tr>";
-                                                                echo "<td align=\"center\" >".$row['palabra_clave']."</td>";
-                                                                echo "<td align=\"center\" >".$row['contenido']."</td>";
-                                                                if ($row['estado']=="1")
-                                                                    echo "<td align=\"center\" >Activo</td>";
-                                                                else
-                                                                    echo "<td align=\"center\" >Inactivo</td>";
-                                                                echo "<td align=\"center\" >".$row['fecha_creacion']."</td>";
-                                                                echo "<td align=\"center\" >".$row['tipo_alcance']."</td>";
-                                                                if (isset($id_reproduciones[$row['id_anuncio']])){
-                                                                    echo "<td align='center'>".$id_reproduciones[$row['id_anuncio']]."</td>";
-                                                                }else{
-                                                                    echo "<td align='center'>0</td>";
-                                                                }
-                                                                echo "</tr>";
-                                                            }
-                                                        ?>
+                                                    <?php
+                                                    while($row = mysqli_fetch_array($allData)){
+                                                        echo "<tr>";
+                                                        echo "<td align=\"center\" >".$row['palabra_clave']."</td>";
+                                                        echo "<td align=\"center\" >".$row['contenido']."</td>";
+                                                        if ($row['estado']=="1")
+                                                            echo "<td align=\"center\" >Activo</td>";
+                                                        else
+                                                            echo "<td align=\"center\" >Inactivo</td>";
+                                                        echo "<td align=\"center\" >".$row['fecha_creacion']."</td>";
+                                                        echo "<td align=\"center\" >".$row['tipo_alcance']."</td>";
+                                                        if (isset($id_reproduciones[$row['id_anuncio']])){
+                                                            echo "<td align='center'>".$id_reproduciones[$row['id_anuncio']]."</td>";
+                                                        }else{
+                                                            echo "<td align='center'>0</td>";
+                                                        }
+                                                        echo "</tr>";
+                                                    }
+                                                    ?>
                                                     </tbody>
                                                     <tfoot>
-                                                        <tr>
-                                                            <td align="center" >Palabra Clave</td>
-                                                            <td align="center" >Contenido Anuncio</td>
-                                                            <td align="center">Estado</td>
-                                                            <td align="center">Fecha de Creación</td>
-                                                            <td align="center">Tipo de Alcance</td>
-                                                            <td align="center">Reproducciones</td>
-                                                        </tr>
+                                                    <tr>
+                                                        <td align="center" >Palabra Clave</td>
+                                                        <td align="center" >Contenido Anuncio</td>
+                                                        <td align="center">Estado</td>
+                                                        <td align="center">Fecha de Creación</td>
+                                                        <td align="center">Tipo de Alcance</td>
+                                                        <td align="center">Reproducciones</td>
+                                                    </tr>
                                                     </tfoot>
                                                 </table>
 
@@ -181,6 +184,14 @@ if ($gestiondatos->obtenerDatosGraficos($_SESSION['user']['id'], $etiquetas, $va
                                                     </div>
 
                                                 </div>
+                                                <?php
+                                                }else{?>
+                                                    <div align="center">
+                                                        <h2>NO HAY DATOS PARA MOSTRAR</h2>
+                                                    </div>
+                                                <?php
+                                                }
+                                                ?>
 
 
 
