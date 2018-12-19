@@ -2,6 +2,7 @@
     include_once "page/start.php";
     include_once "system/Anuncios.php";
     $anuncios = Anuncios::getInstance();
+    $ListaDeAnuncios = $anuncios->obtenerInfoAnuncios($_SESSION["user"]["id"], $cantidad);
 ?>
 <!doctype html>
 <html class="no-js" lang="es">
@@ -89,61 +90,68 @@
                     <h2>Lista de Anuncios creados</h2>
                 </div>
 
-                <table class="table table-striped table-hover">
-                    <thead>
-                        <tr>
-                            <td align="center">Palabra Clave</td>
-                            <td align="center">Contenido</td>
-                            <td align="center">Estado</td>
-                            <td align="center">Alcance</td>
-                            <td align="center">Fecha de creación</td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    </thead>
+                <?php
+                if ($cantidad > 0 ){
+                    echo "<table class=\"table table-striped table-hover\">
+                <thead>
+                <tr>
+                    <td align=\"center\">Palabra Clave</td>
+                    <td align=\"center\">Contenido</td>
+                    <td align=\"center\">Estado</td>
+                    <td align=\"center\">Alcance</td>
+                    <td align=\"center\">Fecha de creación</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                </thead>";
 
-                    <?php
-                        $ListaDeAnuncios = $anuncios->obtenerInfoAnuncios($_SESSION["user"]["id"]);
-                        while ($row = mysqli_fetch_array($ListaDeAnuncios)){
-                            echo "<tr>";
-                                echo "<td align='center'>".$row['palabra_clave']."</td>";
-                                echo "<td align='center'>".$row['contenido']."</td>";
-                                if ($row['estado'] == "0"){
-                                    echo "<td align='center'>Inactivo</td>";
-                                }else{
-                                    echo "<td align='center'>Activo</td>";
-                                }
-                                switch ($row['tipo_alcance']){
-                                    case "1":
-                                        echo "<td align='center'>Local</td>";
-                                        break;
-                                    case "2";
-                                        echo "<td align='center'>Distrital</td>";
-                                        break;
-                                    case "3";
-                                        echo "<td align='center'>Regional</td>";
-                                        break;
-                                }
-                                echo "<td align='center'>".$row['fecha_creacion']."</td>";
-                                //echo "<td align='center'><button type='button' class='btn btn-primary' data-toggle='modal' data-target='#myModal' onclick='alert(\"Hola\");'>VER</button> </td>";
-                                echo "<td align='center'><form action='ad.php' method='post'><button type='submit' class='btn btn-info' name='id' value='".$row['id_anuncio']."'>VER / EDITAR</button> </form></td>";
-                                echo "<td align='center'><form action='ad-erase.php' method='post'><button type='submit' class='btn btn-danger' name='delete' value='".$row['id_anuncio']."'>BORRAR</button> </form></td>";
-                            echo "</tr>";
-                        }
-                    ?>
+                while ($row = mysqli_fetch_array($ListaDeAnuncios)){
+                    echo "<tr>";
+                    echo "<td align='center'>".$row['palabra_clave']."</td>";
+                    echo "<td align='center'>".$row['contenido']."</td>";
+                    if ($row['estado'] == "0"){
+                        echo "<td align='center'>Inactivo</td>";
+                    }else{
+                        echo "<td align='center'>Activo</td>";
+                    }
+                    switch ($row['tipo_alcance']){
+                        case "1":
+                            echo "<td align='center'>Local</td>";
+                            break;
+                        case "2";
+                            echo "<td align='center'>Distrital</td>";
+                            break;
+                        case "3";
+                            echo "<td align='center'>Regional</td>";
+                            break;
+                    }
+                    echo "<td align='center'>".$row['fecha_creacion']."</td>";
+                    //echo "<td align='center'><button type='button' class='btn btn-primary' data-toggle='modal' data-target='#myModal' onclick='alert(\"Hola\");'>VER</button> </td>";
+                    echo "<td align='center'><form action='ad.php' method='post'><button type='submit' class='btn btn-info' name='id' value='".$row['id_anuncio']."'>VER / EDITAR</button> </form></td>";
+                    echo "<td align='center'><form action='ad-erase.php' method='post'><button type='submit' class='btn btn-danger' name='delete' value='".$row['id_anuncio']."'>BORRAR</button> </form></td>";
+                    echo "</tr>";
+                }
 
-                    <tfoot>
+                echo "<tfoot>
                         <tr>
-                            <td align="center">Palabra Clave</td>
-                            <td align="center">Contenido</td>
-                            <td align="center">Estado</td>
-                            <td align="center">Alcance</td>
-                            <td align="center">Fecha de creación</td>
+                            <td align=\"center\">Palabra Clave</td>
+                            <td align=\"center\">Contenido</td>
+                            <td align=\"center\">Estado</td>
+                            <td align=\"center\">Alcance</td>
+                            <td align=\"center\">Fecha de creación</td>
                             <td></td>
                             <td></td>
                         </tr>
                     </tfoot>
-                </table>
+                </table>";
+
+                }else{
+                    echo "<div align='center'><h2>USTED NO TIENEN NINGUN ANUNCIO CREADO</h2></div>";
+                }
+
+                ?>
+
+
 
                 <!-- Modal -->
                 <div class="modal fade" id="myModal" role="dialog">
