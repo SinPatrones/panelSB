@@ -18,7 +18,7 @@ class Anuncios{
         return self::$instance;
     }
 
-    public function crearAnuncio($id_anunciante, $palabra_clave, $contenido, $lat, $lon, $alcance, $estado, $fecha_creacion){
+    public function crearAnuncio($id_anunciante, $palabra_clave, $contenido, $lat, $lon, $alcance, $estado, $fecha_creacion, &$id_anuncio){
         if ($this->con->connect()){
             $this->security->applySecurityToObj($id_anunciante);
             $this->security->applySecurityToObj($contenido);
@@ -40,6 +40,7 @@ class Anuncios{
 
             $result = $this->con->query($sql);
             if($result){
+                $id_anuncio = $this->con->lastid();
                 $this->con->close();
                 return true;
             }

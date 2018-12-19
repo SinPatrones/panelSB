@@ -1,7 +1,9 @@
 <?php
 session_start();
 include_once "../system/Anuncios.php";
+include_once "../system/ContadorAnuncios.php";
 
+$contadorAnuncios = ContadorAnuncios::getInstance();
 $anuncio = Anuncios::getInstance();
 
 if (isset($_SESSION["user"]["id"]) && isset($_POST['scope']) && isset($_POST['status']) && isset($_POST['latitud']) && isset($_POST['longitud']) && isset($_POST['content'])){
@@ -15,7 +17,9 @@ if (isset($_SESSION["user"]["id"]) && isset($_POST['scope']) && isset($_POST['st
     $palabra_clave = $_POST['keyword'];
 
     date_default_timezone_set('America/Lima');
-    $rpta = $anuncio->crearAnuncio($id_user, $palabra_clave, $content, $latitud, $longitud, $scope, $status, date("Y-m-d"));
+    $rpta = $anuncio->crearAnuncio($id_user, $palabra_clave, $content, $latitud, $longitud, $scope, $status, date("Y-m-d"), $new_id_anuncio);
+
+    $contadorAnuncios->crearContador($new_id_anuncio, $_SESSION["user"]["id"]);
 
     if ($rpta){
         echo  '<script language="javascript">alert("Nuevo anuncio insertado.");</script>';
