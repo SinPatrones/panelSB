@@ -100,6 +100,9 @@
                             </div>
                             <button class="btn btn-success btn-block loginbtn">Entrar</button>
                         </form>
+                        <div align="center">
+                            <p><a class="btn btn-success" href="registro/index.html">Registrarme</a></p>
+                        </div>
                         <div class="text-center login-footer">
                             <p>SMARTBUS © 2018. Todos los derechos reservados.
                         </div>

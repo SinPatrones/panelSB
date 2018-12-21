@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <title>Advanced Search Form</title>
+</head>
+
+<body>
+    <div class="container" id="advanced-search-form">
+        <h2>Registro de Anunciantes</h2>
+        <form action="../page/userRegister.php" method="post">
+            <div class="form-group">
+                <label for="name">Nombres</label>
+                <input type="text" class="form-control" placeholder="Nombres" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="lastnamep">Apellido Paterno</label>
+                <input type="text" class="form-control" placeholder="Apellido Paterno" id="lastnamep" name="lastnamep" required>
+            </div>
+            <div class="form-group">
+                <label for="lastnamem">Apellido Materno</label>
+                <input type="text" class="form-control" placeholder="Apellido Materno" id="lastnamem" name="lastnamem" required>
+            </div>
+            <!--<div class="form-group">
+                <label for="country">Country</label>
+                <input type="text" class="form-control" placeholder="Country" id="country">
+            </div>-->
+            <div class="form-group">
+                <label for="numbers">Número de Contacto</label>
+                <input type="text" class="form-control" placeholder="Número de Contacto" id="numbers" name="numbers" required>
+            </div>
+            <div class="form-group">
+                <label for="birth_day">Fecha de Nacimientos</label>
+                <input type="date" class="form-date" placeholder="Age" id="birth_day" name="birth_day" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" placeholder="Email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="pass">Contraseña</label>
+                <input type="password" class="form-control" placeholder="Contraseña" id="pass" name="pass" required>
+            </div>
+            <div class="form-group">
+                <label for="pass_r">Repetir Contraseña</label>
+                <input type="password" class="form-control" placeholder="Repetir Contraseña" id="pass_r" name="pass_r">
+            </div>
+            <div class="form-group">
+                <label>Sexo</label>
+                <div class="radio">
+                    <label class="radio-inline">
+                        <input type="radio" name="sex" value="m" checked>Hombre</label>
+                    <label class="radio-inline">
+                        <input type="radio" name="sex" value="f">Mujer</label>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <button type="submit" class="btn btn-info btn-lg btn-responsive" id="search"> <span class="glyphicon glyphicon-record"></span> Registrarme</button>
+            <a href="../index.php" class="btn btn-primary btn-lg btn-responsive"> <span class="glyphicon glyphicon-asterisk"></span> Iniciar Sesión</a>
+        </form>
+    </div>
+</body>
+
+</html>
