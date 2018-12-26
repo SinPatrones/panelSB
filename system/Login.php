@@ -73,4 +73,18 @@ class Login{
         // sin conexion
         return false;
     }
+
+    public function emailExists($email){
+        if($this->con->connect()){
+            $this->security->applySecurityToObj($email);
+            $this->con->realescape($email);
+            $sql = "SELECT email FROM tbllogin WHERE email='".$email."'";
+            $result = $this->con->query($sql);
+            if ($this->con->getnumrows($result) > 0){
+                return true;
+            }
+            return false;
+        }
+        return false;
+    }
 }

@@ -6,13 +6,67 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="styles.css">
-    <title>Advanced Search Form</title>
+    <title>Registro Smartbus</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script type="application/javascript" lang="javascript">
+        /*$(document).ready(function () {
+            var email;
+            $("#email").keyup(function (e) {
+                email = $("#email").val();
+                $("#resultado").html("Mi correo es: " + email);
+            });
+        });*/
+        function verificar() {
+            var emailBox = document.getElementById("email");
+            var emailText = emailBox.value;
+            var btnRegistrar = document.getElementById("registrar");
+            $.ajax({
+                type: "POST",
+                url: "../page/verifyEmail.php",
+                dataType: "html",
+                data:{
+                    "email" : emailText
+                },
+                success: function(data){
+                    if (data.length > 1){
+                        alert(data);
+                        emailBox.style.borderColor="red";
+                        btnRegistrar.setAttribute('disabled', 'disabled');
+                    }else{
+                        alert("Todo esta bien");
+                        emailBox.style.borderColor="";
+                        btnRegistrar.removeAttribute('disabled');
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                    //if(textStatus === 'timeout'){alert('Failed from timeout');}
+                    if (jqXHR.status === 0) {alert('Not connect: Verify Network: ' + textStatus);}
+                    else if (jqXHR.status == 404) {alert('Requested page not found [404]');}
+                    else if (jqXHR.status == 500) {alert('Internal Server Error [500].');}
+                    else if (textStatus === 'parsererror') {alert('Requested JSON parse failed.');}
+                    else if (textStatus === 'timeout') {alert('Time out error.');}
+                    else if (textStatus === 'abort') {alert('Ajax request aborted.');}
+                    else {alert('Uncaught Error: ' + jqXHR.responseText);}
+                },
+            });
+        }
+
+        function mismoPass() {
+            var passBox = document.getElementById("pass");
+            var passBoxRepeat = document.getElementById("pass_r");
+            if (passBox.value != passBoxRepeat.value){
+                alert("Las claves no son iguales");
+                passBoxRepeat.value = "";
+            }
+        }
+    </script>
 </head>
 
 <body>
     <div class="container" id="advanced-search-form">
         <h2>Registro de Anunciantes</h2>
-        <form action="../page/userRegister.php" method="post">
+        <form action="../page/userRegister.php" method="post" onsubmit="mismoPass();" autocomplete="off">
             <div class="form-group">
                 <label for="name">Nombres</label>
                 <input type="text" class="form-control" placeholder="Nombres" id="name" name="name" required>
@@ -39,7 +93,8 @@
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" class="form-control" placeholder="Email" id="email" name="email" required>
+                <input type="email" class="form-control" placeholder="Email" id="email" name="email" onBlur="verificar();" required>
+                <div id="resultado"></div>
             </div>
             <div class="form-group">
                 <label for="pass">Contraseña</label>
@@ -47,7 +102,7 @@
             </div>
             <div class="form-group">
                 <label for="pass_r">Repetir Contraseña</label>
-                <input type="password" class="form-control" placeholder="Repetir Contraseña" id="pass_r" name="pass_r">
+                <input type="password" class="form-control" placeholder="Repetir Contraseña" id="pass_r" name="pass_r" onchange="mismoPass();">
             </div>
             <div class="form-group">
                 <label>Sexo</label>
@@ -59,7 +114,7 @@
                 </div>
             </div>
             <div class="clearfix"></div>
-            <button type="submit" class="btn btn-info btn-lg btn-responsive" id="search"> <span class="glyphicon glyphicon-record"></span> Registrarme</button>
+            <button type="submit" class="btn btn-info btn-lg btn-responsive" id="registrar"> <span class="glyphicon glyphicon-record"></span> Registrarme</button>
             <a href="../index.php" class="btn btn-primary btn-lg btn-responsive"> <span class="glyphicon glyphicon-asterisk"></span> Iniciar Sesión</a>
         </form>
     </div>
