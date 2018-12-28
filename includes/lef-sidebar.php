@@ -12,11 +12,7 @@
                     </li>
 
                     <li>
-                        <a title="Todo lo que el bus realiza e informa en su recorrido" class="has-arrow" href="#" aria-expanded="false"><span class="educate-icon educate-event icon-wrap sub-icon-mg"></span> <span class="mini-click-non">Bitácora</span></a>
-                        <ul class="submenu-angle" aria-expanded="false">
-                            <li><a title="All Professors" href="binnacle.php?id=1"><span class="mini-sub-pro">Bus 1</span></a></li>
-                            <li><a title="Add Professor" href="binnacle.php?id=2"><span class="mini-sub-pro">Bus2</span></a></li>
-                        </ul>
+                        <a title="Ver resumen de toda la plataforma" href="blog.php" aria-expanded="false"><span class="educate-icon educate-event icon-wrap"></span> <span class="mini-click-non">Blog</span></a>
                     </li>
                     <li>
                         <a title="Crear, Eliminar, Editar Anuncios" class="has-arrow" href="#" aria-expanded="false"><span class="educate-icon educate-library icon-wrap"></span> <span class="mini-click-non">Anuncios</span></a>
